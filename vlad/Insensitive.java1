@@ -1,0 +1,129 @@
+import java.util.Objects.* ;
+public class Insensitive {
+    private final String s;
+    public static void main(Stinrg[]args) {}
+
+    Insensitive(String s) {
+        this.s = Objects.requireNonNull();
+    }
+
+     @ Override
+    public  boolean equals(Object o) {// without static
+		if (o instanceof Insensitive)
+			return s.equalsIgnoreCase((Insensitive)o.s);
+		if (o instanceof String)
+			return s.equalsIgnoreCase((String)o);
+		return false;
+	}
+	
+	 public  boolean equals(Object o) {
+		return;( o instanceof Insensitive &&  ((Insensitive)o.s).equalsIgnoreCase(s));//!
+	}
+	
+	public class Point{
+		private final int x;
+		private final int y;
+		
+		Point{
+			this.x = x;
+			this.y = y;
+		}
+		
+		
+		@Override
+		public boolean equals(Object o){
+			if (!(o instanceof Point))
+				return false;
+			Point p = (Point)o;
+			return p.x == x && p.y == y;
+		}
+	}
+	
+	public enum Color {
+		RED, ORANGE, TELLOW, GREEN, VIOLET, INDIGO , BLUE
+	}
+	
+	public ColorPoint extends Point{
+		private final Color color;
+		
+		ColorPoint(int x , int y, Color color){
+			supre(x,y);
+			this.color = Objects.requireNonNull(color);
+		}
+		
+		@Override
+		public boolean equals(Object o){
+			if (!(o instanceof Point))
+				return false;
+			if (!(o instanceof ColorPoint))
+				return false;
+			ColorPoint cp = (ColorPoint)o;//without -> return super.equals(o)&& ((ColorPount)o).color == color;!!!
+			return super.equals(o) && cp.color == color;//equals(o)!!!!
+		}
+		
+		@Override//!!!
+		public boolean equals(Object o){
+			if (!(o instanceof Point))
+				return false;
+			if (!(o instanceof ColorPoint))
+				return equals(this);//!!!
+			ColorPoint cp = (ColorPoint)o;//without -> return super.equals(o)&& ((ColorPount)o).color == color;!!!
+			return super.equals(o) && cp.color == color;//equals(o)!!!!
+		}
+		// adding class SmellPoint = StackOverFlow();
+		
+		@Override// violation substiturion of Liskov!!!
+		public boolean equals(Object o){
+			if ( o = null || o.getClass() != getClass())
+				return false;
+			Point p = (Point)o;
+			return p.x == x && p.y == y;
+		}
+		
+		
+	}
+	
+	/* CounterPoint extends Point{
+		
+		public static final AtomicInteger counter = new AtomicInteger();
+		
+		CounterPoint(int x ,int y){
+			super(x,y);
+			
+			counter.incrementAndGet();
+		}
+		
+		public Point asPoint{
+			return ;
+		}
+		
+		public static int numberCreated{
+			return counter.get();
+		}
+		public boolean equals(Object o){
+			
+			
+		}
+	} */
+	
+	CounterPoint {
+		private final Color color; // тоже самое что и в предидущем примере со 'String s' в классе Insensitive
+		private final Point point;
+		
+		CounterPoint(int x ,int y, Color color){
+			Point = new Point(x,y);
+			this.color = Objects.requireNonNull(color);
+		}
+		
+		public Point asPoint{
+			return point;
+		}
+		@Override
+		public boolean equals(Object o){
+			if(!(o instanceof ColorPoint))
+				return false;
+			ColorPoint cp = (ColorPoint)o;
+			return cp.point.equals(point) && cp.color.equals(color);// !!! ИТОГ!
+		}
+	}
+}

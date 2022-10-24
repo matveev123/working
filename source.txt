@@ -1,0 +1,3 @@
+./src/equals/Color.java
+./src/equals/ColorPoint.java
+./src/equals/Point.java
